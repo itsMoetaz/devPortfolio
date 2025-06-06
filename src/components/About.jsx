@@ -1,359 +1,382 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
+import StarField from './StarField'
+import DecryptedText from '../styles/DecryptedText'
+import ProfileCard from '../styles/ProfileCard'
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(ScrollTrigger)
 
 const About = () => {
   const sectionRef = useRef(null)
-  const titleRef = useRef(null)
+  const heroRef = useRef(null)
   const contentRef = useRef(null)
-  const imageContainerRef = useRef(null)
-  const timelineRef = useRef([])
-  const progressRef = useRef(null)
-  const [isInView, setIsInView] = useState(false)
-  
-  // Experience timeline data
-  const timelineItems = [
-    {
-      year: "2023",
-      role: "Senior Frontend Developer",
-      company: "TechVision",
-      description: "Led a team of 5 developers building modern web applications with React and Three.js."
-    },
-    {
-      year: "2021",
-      role: "Full Stack Developer",
-      company: "Digital Solutions Inc.",
-      description: "Developed scalable applications using MERN stack and implemented CI/CD pipelines."
-    },
-    {
-      year: "2019",
-      role: "UI/UX Designer & Developer",
-      company: "Creative Studio",
-      description: "Created interactive user experiences with a focus on motion design principles."
-    }
-  ]
-  
+  const skillsRef = useRef(null)
+  const statsRef = useRef(null)
+
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Updated transition effect that's smoother
-      const transitionTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom-=150",
-          end: "top center",
-          onEnter: () => {
-            setIsInView(true)
-            // Make sure section is visible before animation
-            gsap.set(sectionRef.current, { visibility: "visible" })
-          },
-          onLeaveBack: () => {
-            setIsInView(false)
-          },
-          once: false
-        }
-      })
-      
-      // Create visual transition elements
-      const transitionWave = document.querySelector('.home-to-about-transition')
-      if (!transitionWave) {
-        const wave = document.createElement('div')
-        wave.className = 'home-to-about-transition'
-        document.body.appendChild(wave)
-      }
-      
-      // Split text for advanced animation
-      let splitTitle
-      if (titleRef.current) {
-        splitTitle = new SplitText(titleRef.current, { type: "chars, words" })
-        
-        gsap.set(splitTitle.chars, { 
-          y: 100,
-          opacity: 0,
-          rotationX: -60
-        })
-      }
-      
-      // Content animation
-      const contentElems = contentRef.current ? contentRef.current.querySelectorAll('p, .skill-chip') : []
-      gsap.set(contentElems, {
-        y: 50,
-        opacity: 0
-      })
-      
-      // Image container animation
-      gsap.set(imageContainerRef.current, {
-        scale: 0.8,
+      // Hero section animation
+      gsap.from(heroRef.current.children, {
+        y: 60,
         opacity: 0,
-        rotationY: 15
-      })
-      
-      // Timeline items animation
-      gsap.set('.timeline-item', {
-        opacity: 0,
-        x: -50
-      })
-      
-      gsap.set('.timeline-indicator', {
-        height: 0
-      })
-      
-      // Main animation timeline
-      const mainTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top center+=100",
-          end: "bottom bottom",
-          toggleActions: "play none none reverse"
-        }
-      })
-      
-      // Add animations to timeline
-      mainTl
-        .to(splitTitle.chars, {
-          duration: 1.2,
-          y: 0,
-          opacity: 1,
-          rotationX: 0,
-          stagger: 0.03,
-          ease: "back.out(1.7)"
-        })
-        .to(contentElems, {
-          duration: 1,
-          y: 0,
-          opacity: 1,
-          stagger: 0.08,
-          ease: "power3.out"
-        }, "-=0.8")
-        .to(imageContainerRef.current, {
-          duration: 1.4,
-          scale: 1,
-          opacity: 1,
-          rotationY: 0,
-          ease: "power3.out"
-        }, "-=1.2")
-        .to('.timeline-item', {
-          opacity: 1,
-          x: 0,
-          stagger: 0.2,
-          ease: "back.out(1.2)"
-        }, "-=1")
-        .to('.timeline-indicator', {
-          height: '100%',
-          duration: 1.8,
-          ease: "power3.inOut"
-        }, "-=1.5")
-        
-      // Parallax effect for the section
-      gsap.to(sectionRef.current, {
-        yPercent: -15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      })
-      
-      // Stats counter animation
-      gsap.to('.counter-number', {
-        textContent: function(i, target) {
-          const finalValue = parseInt(target.getAttribute('data-value'))
-          return Math.floor(finalValue)
-        },
-        duration: 2.5,
-        ease: "power2.inOut",
-        snap: { textContent: 1 },
+        duration: 1,
         stagger: 0.2,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: '.stats-container',
-          start: "top 80%"
+          trigger: heroRef.current,
+          start: "top 80%",
         }
       })
-      
-      // 3D tilt effect for image
-      const image = imageContainerRef.current
-      if (image) {
-        const tiltImage = (e) => {
-          const xPos = (e.clientX / window.innerWidth) - 0.5
-          const yPos = (e.clientY / window.innerHeight) - 0.5
-          
-          gsap.to(image, {
-            rotationY: xPos * 15,
-            rotationX: -yPos * 15,
-            ease: "power1.out",
-            duration: 0.5
-          })
+
+      // Content animation
+      gsap.from(contentRef.current.children, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 85%",
         }
-        
-        const resetTilt = () => {
-          gsap.to(image, {
-            rotationY: 0,
-            rotationX: 0,
-            ease: "power3.out",
-            duration: 0.5
-          })
+      })
+
+      // Skills animation
+      gsap.from(".skill-tag", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: skillsRef.current,
+          start: "top 85%",
         }
-        
-        image.addEventListener('mousemove', tiltImage)
-        image.addEventListener('mouseleave', resetTilt)
-        
-        return () => {
-          image.removeEventListener('mousemove', tiltImage)
-          image.removeEventListener('mouseleave', resetTilt)
+      })
+
+      // Stats counter animation
+      gsap.from(".stat-item", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: statsRef.current,
+          start: "top 85%",
         }
-      }
+      })
+
+      // Number counter effect
+      const counters = document.querySelectorAll('.counter')
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'))
+        gsap.to(counter, {
+          textContent: target,
+          duration: 2,
+          ease: "power2.out",
+          snap: { textContent: 1 },
+          scrollTrigger: {
+            trigger: counter,
+            start: "top 85%",
+          }
+        })
+      })
+
     }, sectionRef)
-    
+
     return () => ctx.revert()
   }, [])
-  
+
+  const skills = [
+    "React", "Next.js", "TypeScript", "Node.js", 
+    "MongoDB", "PostgreSQL", "Tailwind CSS", "GSAP",
+    "Three.js", "Python", "AWS", "Docker"
+  ]
+
+  const stats = [
+    { number: 50, label: "Projects Completed", suffix: "+" },
+    { number: 3, label: "Years Experience", suffix: "+" },
+    { number: 25, label: "Happy Clients", suffix: "+" },
+    { number: 100, label: "Success Rate", suffix: "%" }
+  ]
+
+  const handleContactClick = () => {
+    // Scroll to contact section or open contact modal
+    const contactSection = document.getElementById('contact')
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      console.log('Contact clicked - implement your contact logic here')
+    }
+  }
+
   return (
     <section 
       ref={sectionRef} 
       id="about" 
-      className="about-section relative min-h-screen py-20 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-b from-base-100 to-base-200 py-20 px-4 overflow-hidden"
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 about-bg-gradient"></div>
-      <div className="absolute inset-0 about-bg-shapes"></div>
-      <div className="about-particles"></div>
-      
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="mb-16 text-center">
-          <div className="text-sm uppercase tracking-[0.3em] text-base-content/60 font-medium mb-4 glowing-text">
+      {/* StarField Background */}
+      <div className="absolute inset-0 z-0">
+        <StarField />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-6xl mx-auto">
+        
+        {/* Hero Section */}
+        <div ref={heroRef} className="text-center mb-20">
+          <div className="inline-block px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full text-primary text-sm font-medium mb-6 border border-primary/20">
             About Me
           </div>
-          <h2 ref={titleRef} className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
-            <span className="text-gradient-about">Creative Developer</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-base-content mb-6">
+            Hi, I'm <span className="text-primary">Moetaz</span>
           </h2>
+          <div className="text-xl text-base-content/80 max-w-2xl mx-auto font-mono">
+            <DecryptedText 
+              text="A passionate full-stack developer who loves creating beautiful, functional, and user-friendly digital experiences."
+              animateOn="view"
+              speed={30}
+              maxIterations={15}
+              sequential={true}
+              revealDirection="start"
+              className="text-xl text-base-content/80"
+              encryptedClassName="text-xl text-primary/60"
+              parentClassName="leading-relaxed"
+            />
+          </div>
         </div>
-        
-        {/* Main content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           
-          {/* Left side: Image & stats */}
-          <div className="space-y-16">
-            {/* Profile Image with 3D hover effect */}
-            <div 
-              ref={imageContainerRef} 
-              className="about-image-container mx-auto"
-            >
-              <div className="about-image-frame">
-                <div className="about-image-glow"></div>
-                <div className="about-image-content">
-                  {/* Replace with your actual image */}
-                  <div className="w-full h-full flex items-center justify-center text-9xl">
-                    👨‍💻
-                  </div>
-                </div>
-                <div className="about-image-reflections"></div>
-              </div>
-            </div>
-            
-            {/* Stats with animated counters */}
-            <div className="stats-container grid grid-cols-3 gap-6">
-              <div className="stat-card-enhanced group">
-                <div className="stat-card-inner">
-                  <div className="counter-number text-4xl font-black text-gradient-1" data-value="50">0</div>
-                  <div className="text-sm uppercase tracking-wider text-base-content/60 mt-2">
-                    Projects
-                  </div>
-                  <div className="stat-icon">🚀</div>
-                </div>
-              </div>
-              <div className="stat-card-enhanced group">
-                <div className="stat-card-inner">
-                  <div className="counter-number text-4xl font-black text-gradient-2" data-value="5">0</div>
-                  <div className="text-sm uppercase tracking-wider text-base-content/60 mt-2">
-                    Years
-                  </div>
-                  <div className="stat-icon">⏳</div>
-                </div>
-              </div>
-              <div className="stat-card-enhanced group">
-                <div className="stat-card-inner">
-                  <div className="counter-number text-4xl font-black text-gradient-3" data-value="100">0</div>
-                  <div className="text-sm uppercase tracking-wider text-base-content/60 mt-2">
-                    Success
-                  </div>
-                  <div className="stat-icon">🏆</div>
-                </div>
-              </div>
+          {/* Profile Card */}
+          <div className="flex justify-center lg:justify-start pl-12">
+            <div className="w-full max-w-sm">
+              <ProfileCard
+                name="Moetaz Khedher"
+                title="Full-Stack Developer"
+                handle="moetazKH"
+                status="Available for work"
+                contactText="Get In Touch"
+                avatarUrl="src\assets\x.png"
+                backgroundImage="src\assets\x.png"
+                showUserInfo={true}
+                enableTilt={true}
+                onContactClick={handleContactClick}
+                className="backdrop-blur-md bg-base-100/30 border-white/10"
+              />
             </div>
           </div>
-          
-          {/* Right side: Content & timeline */}
-          <div ref={contentRef} className="space-y-10">
-            {/* About Content */}
-            <div className="about-card-enhanced">
-              <div className="about-card-inner">
-                <p className="text-xl leading-relaxed text-base-content/90 mb-6">
-                  I'm a passionate <span className="text-gradient-about">full-stack developer</span> and <span className="text-gradient-about">UI/UX enthusiast</span> with a love for creating stunning digital experiences that merge aesthetics with functionality.
-                </p>
-                
-                <p className="text-lg leading-relaxed text-base-content/80 mb-8">
-                  Through years of exploration and growth, I've developed a unique approach to design and development that emphasizes user experience, performant code, and creative problem-solving. I constantly push the boundaries of what's possible in digital design.
-                </p>
-                
-                {/* Skill chips */}
-                <div className="flex flex-wrap gap-3 mb-8">
-                  <span className="skill-chip">React</span>
-                  <span className="skill-chip">Three.js</span>
-                  <span className="skill-chip">GSAP</span>
-                  <span className="skill-chip">Node.js</span>
-                  <span className="skill-chip">UI/UX Design</span>
-                  <span className="skill-chip">Creative Coding</span>
-                </div>
-                
-                {/* CTA Button */}
-                <button className="btn-about-cta group">
-                  <span className="btn-text">Download Resume</span>
-                  <span className="btn-icon">📄</span>
-                  <span className="btn-particle-container"></span>
+
+          {/* Content */}
+          <div ref={contentRef} className="space-y-6 lg:pr-10">
+            <div className="bg-base-100/30 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+              <h3 className="text-2xl font-bold text-base-content mb-4">
+Infos             </h3>
+              
+              <p className="text-base-content/90 leading-relaxed mb-4">
+I'm a curious and passionate Full-Stack Developer who enjoys learning, solving problems, and building useful products. I work mainly with Angular, Spring Boot, and the MERN stack, and I’m also exploring DevOps and AI.
+              </p>
+              
+              <p className="text-base-content/90 leading-relaxed mb-6">
+I’m known for being a fast learner, a collaborative team player, and someone who stays calm under pressure. I love sharing knowledge and growing a little every day.
+
+My goal is to keep improving while contributing to projects that make a real impact.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="btn btn-primary backdrop-blur-sm">
+                  Download CV
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </button>
+                <button 
+                  onClick={handleContactClick}
+                  className="btn btn-outline backdrop-blur-sm border-white/20 hover:bg-white/10"
+                >
+                  Contact Me
                 </button>
               </div>
             </div>
-            
-            {/* Experience Timeline */}
-            <div className="about-timeline-container">
-              <h3 className="text-xl font-bold mb-6 text-gradient-about">Professional Journey</h3>
-              
-              <div className="timeline-wrapper">
-                <div className="timeline-track">
-                  <div className="timeline-indicator"></div>
+          </div>
+        </div>
+
+        {/* Skills Section */}
+        <div ref={skillsRef} className="mb-20">
+          <div className="bg-base-100/20 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+            <h3 className="text-2xl font-bold text-center mb-10 text-base-content">
+              Technologies I Work With
+            </h3>
+            <div className="tech-scroll-container">
+              <div className="tech-scroll-track">
+                {/* First set of technologies */}
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                  <span>JavaScript</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+                  <span>React</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular" />
+                  <span>Angular</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+                  <span>Node.js</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" />
+                  <span>Spring Boot</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET" />
+                  <span>.NET</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                  <span>Python</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
+                  <span>Docker</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins" />
+                  <span>Jenkins</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+                  <span>HTML5</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+                  <span>CSS3</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+                  <span>Git</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+                  <span>MongoDB</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
+                  <span>Figma</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" alt="UI/UX" />
+                  <span>UI/UX</span>
+                </div>
+                                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" />
+                  <span>Express.js</span>
+                </div>
+                                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+                  <span>MySQL</span>
                 </div>
                 
-                {timelineItems.map((item, index) => (
-                  <div key={index} className="timeline-item">
-                    <div className="timeline-marker"></div>
-                    <div className="timeline-content">
-                      <span className="timeline-year">{item.year}</span>
-                      <h4 className="timeline-role">{item.role}</h4>
-                      <span className="timeline-company">{item.company}</span>
-                      <p className="timeline-description">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
+                {/* Duplicate set for seamless loop */}
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                  <span>JavaScript</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+                  <span>React</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular" />
+                  <span>Angular</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+                  <span>Node.js</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" />
+                  <span>Spring Boot</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET" />
+                  <span>.NET</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                  <span>Python</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
+                  <span>Docker</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins" />
+                  <span>Jenkins</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+                  <span>HTML5</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+                  <span>CSS3</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+                  <span>Git</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+                  <span>MongoDB</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
+                  <span>Figma</span>
+                </div>
+                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" alt="UI/UX" />
+                  <span>UI/UX</span>
+                </div>
+                                                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" />
+                  <span>Express.js</span>
+                </div>
+                                <div className="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+                  <span>MySQL</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
-        {/* Bottom Quote Section */}
-        <div className="mt-32 text-center max-w-4xl mx-auto">
-          <div className="quote-container">
-            <div className="quote-mark">"</div>
-            <blockquote className="quote-text">
-              I believe the best digital experiences merge technology, design, and storytelling
-              into something that feels like magic.
-            </blockquote>
-            <div className="quote-attribution">— My Design Philosophy</div>
-          </div>
+
+        {/* Stats Section */}
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <div key={index} className="stat-item text-center bg-base-100/20 backdrop-blur-md rounded-xl p-6 border border-white/10">
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                <span 
+                  className="counter" 
+                  data-target={stat.number}
+                >
+                  0
+                </span>
+                {stat.suffix}
+              </div>
+              <div className="text-sm text-base-content/80 uppercase tracking-wide">
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </div>
+
       </div>
     </section>
   )

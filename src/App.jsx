@@ -13,6 +13,7 @@ import PerformanceMonitor from './components/PerformanceMonitor'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
+import ScrambledText from './styles/ScrambledText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -275,7 +276,7 @@ function App() {
             showNavbar ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
           }`}
         >
-          <div className="flex items-center justify-between max-w-7xl mx-auto w-full px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between max-w-7xl mx-auto w-full px-6 lg:px-8 py-2">
             <div className="text-2xl font-black text-gradient-logo hero-logo">
               <span className="text-gradient-logo">Dev</span>Portfolio
             </div>
@@ -313,29 +314,35 @@ function App() {
               {/* Enhanced Content Side */}
               <div className="order-1 lg:order-2 space-y-10 text-center lg:text-left">
                 <div className="space-y-6">
-                  <div className="text-sm uppercase tracking-[0.4em] text-base-content/60 font-medium animate-fade-in">
-                    Welcome to my digital universe
-                  </div>
+
                   
                   <div ref={heroTitleRef} className="space-y-4">
-                    <h1 className="hero-title-enhanced text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                      <span className="hero-gradient-1">Future</span>
+                    <h1 className="hero-title-enhanced text-xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-5xl font-black leading-tight">
+                      <span className="hero-gradient-1">Welcome to my digital universe </span>
                     </h1>
-                    <h1 className="hero-title-enhanced text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                      <span className="hero-gradient-2">Developer</span>
-                    </h1>
+
                   </div>
                 </div>
                 
-                <p 
+                {/* <p 
                   ref={heroSubtitleRef} 
                   className="hero-subtitle-enhanced text-xl sm:text-2xl md:text-3xl leading-relaxed max-w-2xl text-base-content/80"
                 >
                   Crafting tomorrow's digital experiences with cutting-edge technology, 
                   innovative design, and boundless creativity
-                </p>
+                </p> */}
+                <ScrambledText
+  className="scrambled-text-demo text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto lg:mx-0"
+  radius={100}
+  duration={1.2}
+  speed={0.5}
+  scrambleChars={".:"}
+>
+                  Crafting tomorrow's digital experiences with cutting-edge technology, 
+                  innovative design, and boundless creativity
+</ScrambledText>
                 
-                <div ref={heroCtaRef} className="flex flex-col sm:flex-row gap-6 lg:justify-start justify-center pt-6">
+                <div ref={heroCtaRef} className="flex flex-col sm:flex-row gap-6 lg:justify-center pt-2">
                   <button className="btn-hero-primary interactive group overflow-hidden">
                     <span className="relative z-10 flex items-center gap-3">
                       <span>Explore My Universe</span>
@@ -343,30 +350,10 @@ function App() {
                     </span>
                     <div className="btn-particles"></div>
                   </button>
-                  <button className="btn-hero-secondary interactive group overflow-hidden">
-                    <span className="relative z-10 flex items-center gap-3">
-                      <span>Download Portfolio</span>
-                      <span className="text-xl transition-transform group-hover:rotate-12">📄</span>
-                    </span>
-                    <div className="btn-particles"></div>
-                  </button>
+
                 </div>
 
-                {/* Enhanced Stats */}
-                <div className="grid grid-cols-3 gap-8 pt-12 max-w-md lg:max-w-none mx-auto">
-                  <div className="stat-item text-center lg:text-left">
-                    <div className="text-3xl lg:text-4xl font-black text-gradient stat-number">50+</div>
-                    <div className="text-sm text-base-content/60 uppercase tracking-wider">Projects</div>
-                  </div>
-                  <div className="stat-item text-center lg:text-left">
-                    <div className="text-3xl lg:text-4xl font-black text-gradient stat-number">5+</div>
-                    <div className="text-sm text-base-content/60 uppercase tracking-wider">Years</div>
-                  </div>
-                  <div className="stat-item text-center lg:text-left">
-                    <div className="text-3xl lg:text-4xl font-black text-gradient stat-number">100%</div>
-                    <div className="text-sm text-base-content/60 uppercase tracking-wider">Success</div>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

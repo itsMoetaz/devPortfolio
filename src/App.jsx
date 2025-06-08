@@ -3,27 +3,21 @@ import { Canvas } from '@react-three/fiber'
 import Navbar from './components/Navbar'
 import Hero3D from './components/Hero3D'
 import About from './components/About'
-import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import LoadingSpinner from './components/LoadingSpinner'
 import ThemeController from './components/ThemeController'
-import PerformanceMonitor from './components/PerformanceMonitor'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
 import ScrambledText from './styles/ScrambledText'
+import FloatingMenu from './components/FloatingMenu'
+import { motion, AnimatePresence } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Memoized components for better performance
-const MemoizedAbout = memo(About)
-const MemoizedSkills = memo(Skills)
-const MemoizedProjects = memo(Projects)
-const MemoizedContact = memo(Contact)
-const MemoizedFooter = memo(Footer)
-const MemoizedHero3D = memo(Hero3D)
+
 
 // Enhanced Error Boundary
 class ErrorBoundary extends React.Component {
@@ -236,21 +230,27 @@ function App() {
 
   return (
     <>
-      {/* Enhanced Page Loader */}
-      <div ref={pageLoaderRef} className="page-loader fixed inset-0 z-[100] flex items-center justify-center">
-        <div className="text-center space-y-8">
-          <div className="loader-animation">
-            <div className="loader-ring"></div>
-            <div className="loader-ring"></div>
-            <div className="loader-ring"></div>
-          </div>
-          <div className="space-y-4">
-            <div className="text-7xl animate-pulse">🚀</div>
-            <h2 className="text-3xl font-bold text-gradient animate-fade-in">Launching Experience</h2>
-            <p className="text-base-content/70 animate-fade-in-delayed">Preparing your journey through the digital cosmos</p>
-          </div>
-        </div>
-      </div>
+      {/* Page Loader */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div 
+            ref={pageLoaderRef}
+            className="page-loader fixed inset-0 z-50 flex flex-col items-center justify-center"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="loader-animation mb-8">
+              <div className="loader-ring"></div>
+              <div className="loader-ring"></div>
+              <div className="loader-ring"></div>
+            </div>
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gradient-logo mb-4 animate-fade-in">Welcome to My Portfolio</h2>
+              <p className="text-base-content/70 animate-fade-in-delayed">Preparing your journey through the digital cosmos</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-base-300/20 z-50">
@@ -277,18 +277,25 @@ function App() {
           }`}
         >
           <div className="flex items-center justify-between max-w-7xl mx-auto w-full px-6 lg:px-8 py-2">
+            {/* Logo - Left Side */}
             <div className="text-2xl font-black text-gradient-logo hero-logo">
               <span className="text-gradient-logo">Dev</span>Portfolio
             </div>
-            <div className="hidden md:flex items-center space-x-10">
-              <a href="#home" className="nav-link interactive">Home</a>
-              <a href="#about" className="nav-link interactive">About</a>
-              <a href="#skills" className="nav-link interactive">Skills</a>
-              <a href="#projects" className="nav-link interactive">Projects</a>
-              <a href="#contact" className="nav-link interactive">Contact</a>
-            </div>
-            <button className="btn-gradient-modern interactive">
-              Get In Touch
+            
+            {/* Empty Middle Section */}
+            <div className="flex-1"></div>
+            
+            {/* Let's Talk Button - Right Side */}
+            <button 
+              className="btn-gradient-modern interactive"
+              onClick={() => {
+                const contactSection = document.getElementById('contact')
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' })
+                }
+              }}
+            >
+              Let's Talk
             </button>
           </div>
         </nav>
@@ -323,14 +330,7 @@ function App() {
 
                   </div>
                 </div>
-                
-                {/* <p 
-                  ref={heroSubtitleRef} 
-                  className="hero-subtitle-enhanced text-xl sm:text-2xl md:text-3xl leading-relaxed max-w-2xl text-base-content/80"
-                >
-                  Crafting tomorrow's digital experiences with cutting-edge technology, 
-                  innovative design, and boundless creativity
-                </p> */}
+
                 <ScrambledText
   className="scrambled-text-demo text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto lg:mx-0"
   radius={100}
@@ -369,14 +369,13 @@ function App() {
 
         <div className="relative z-10">
           <About />
-          <Skills />
           <Projects />
           <Contact />
           <Footer />
         </div>
-        
-        {/* Performance Monitor - Development Only */}
-        {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
+
+        {/* Floating Menu */}
+        <FloatingMenu />
       </div>
     </>
   )

@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import StarField from './StarField'
 import DecryptedText from '../styles/DecryptedText'
 import ProfileCard from '../styles/ProfileCard'
+import RotatingText from '../styles/RotatingText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,6 +14,7 @@ const About = () => {
   const contentRef = useRef(null)
   const skillsRef = useRef(null)
   const statsRef = useRef(null)
+
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -89,18 +91,7 @@ const About = () => {
     return () => ctx.revert()
   }, [])
 
-  const skills = [
-    "React", "Next.js", "TypeScript", "Node.js", 
-    "MongoDB", "PostgreSQL", "Tailwind CSS", "GSAP",
-    "Three.js", "Python", "AWS", "Docker"
-  ]
 
-  const stats = [
-    { number: 50, label: "Projects Completed", suffix: "+" },
-    { number: 3, label: "Years Experience", suffix: "+" },
-    { number: 25, label: "Happy Clients", suffix: "+" },
-    { number: 100, label: "Success Rate", suffix: "%" }
-  ]
 
   const handleContactClick = () => {
     // Scroll to contact section or open contact modal
@@ -132,7 +123,25 @@ const About = () => {
             About Me
           </div>
           <h2 className="text-4xl md:text-6xl font-bold text-base-content mb-6">
-            Hi, I'm <span className="text-primary">Moetaz</span>
+            Hi, I'm{' '}
+            <span className="inline-block">
+              <RotatingText
+                texts={['Moetaz', 'Ben Khedher', 'FullStack', 'Developer']}
+                rotationInterval={2000}
+                mainClassName="text-primary"
+                splitBy="characters"
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 300
+                }}
+                initial={{ y: "100%", opacity: 0, rotateX: 90 }}
+                animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                exit={{ y: "-120%", opacity: 0, rotateX: -90 }}
+                staggerDuration={0.05}
+                staggerFrom="first"
+              />
+            </span>
           </h2>
           <div className="text-xl text-base-content/80 max-w-2xl mx-auto font-mono">
             <DecryptedText 
@@ -357,25 +366,6 @@ My goal is to keep improving while contributing to projects that make a real imp
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <div key={index} className="stat-item text-center bg-base-100/20 backdrop-blur-md rounded-xl p-6 border border-white/10">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                <span 
-                  className="counter" 
-                  data-target={stat.number}
-                >
-                  0
-                </span>
-                {stat.suffix}
-              </div>
-              <div className="text-sm text-base-content/80 uppercase tracking-wide">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
 
       </div>
     </section>

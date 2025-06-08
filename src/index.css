@@ -1260,89 +1260,7 @@ section-transition-overlay {
   pointer-events: none;
   transform: translateY(1px);
 }
-/* ======== SKILLS SECTION ======== */
-.skills-section {
-  position: relative;
-  background: linear-gradient(
-    145deg,
-    #0f172a 0%,
-    #1e293b 30%,
-    #334155 60%,
-    #1e293b 90%,
-    #0f172a 100%
-  );
-  overflow: hidden;
-}
 
-.skills-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 50%);
-  /* Removed expensive skillsGlow animation for better performance */
-}
-
-.skill-card {
-  position: relative;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  border-radius: 16px;
-  padding: 30px;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.skill-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  /* Removed expensive skillShimmer animation for better performance */
-}
-
-.skill-card:hover {
-  transform: translateY(-15px) scale(1.03);
-  border-color: rgba(168, 85, 247, 0.4);
-  box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
-}
-
-.skill-progress-bar {
-  position: relative;
-  width: 0;
-  height: 100%;
-  border-radius: 9999px;
-  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-  background-size: 200% 200%;
-  /* Removed expensive gradientFlow animation for better performance */
-}
-
-.skill-progress-bar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  /* Removed expensive shimmer animation for better performance */
-}
 
 /* ======== PROJECTS SECTION ======== */
 .projects-section {
@@ -1999,5 +1917,235 @@ textarea:focus {
   
   .tech-item span {
     font-size: 0.8rem;
+  }
+}
+/* Floating animation for background elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.3;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Line clamp utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Enhanced card hover effects */
+.project-card:hover {
+  transform: translateY(-8px);
+}
+
+.project-card .btn {
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .btn {
+  transform: translateY(-2px);
+}
+/* Contact Section Animations */
+@keyframes grid-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(60px, 60px);
+  }
+}
+
+/* Floating icons animation */
+.floating-icon {
+  animation: float-contact 8s ease-in-out infinite;
+}
+
+@keyframes float-contact {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-15px) rotate(90deg) scale(1.1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg) scale(1.2);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translateY(-15px) rotate(270deg) scale(1.1);
+    opacity: 0.15;
+  }
+}
+
+/* Contact card hover effects */
+.contact-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Form input focus effects */
+.form-element input:focus,
+.form-element textarea:focus {
+  transform: scale(1.02);
+}
+
+/* Social link hover animation */
+.social-link {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-link:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Background element animation */
+.contact-bg-element {
+  animation: blob-pulse 12s ease-in-out infinite;
+}
+
+@keyframes blob-pulse {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translate(10px, -10px) scale(1.1) rotate(90deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-5px, -20px) scale(0.9) rotate(180deg);
+    opacity: 0.25;
+  }
+  75% {
+    transform: translate(-15px, 5px) scale(1.05) rotate(270deg);
+    opacity: 0.35;
+  }
+}
+
+/* Enhanced gradient animation */
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 5s ease infinite;
+}
+
+/* Button loading animation */
+.btn:disabled {
+  animation: pulse 2s infinite;
+}
+
+/* Form field animation on focus */
+.form-element input:focus + div,
+.form-element textarea:focus + div {
+  opacity: 1 !important;
+}
+
+/* Tooltip animations */
+.social-link .absolute {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* ======== FLOATING MENU STYLES ======== */
+.floating-menu-item {
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-menu-item:hover {
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.1);
+}
+
+.floating-menu-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Enhanced floating menu animations */
+@keyframes menuPulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+  }
+}
+
+.floating-menu-button {
+  animation: menuPulse 3s ease-in-out infinite;
+}
+
+/* Smooth transitions for menu items */
+.menu-item-enter {
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+}
+
+.menu-item-enter-active {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-item-exit {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.menu-item-exit-active {
+  opacity: 0;
+  transform: scale(0) rotate(180deg);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Mobile responsiveness for floating menu */
+@media (max-width: 768px) {
+  .floating-menu {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .floating-menu-button {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .floating-menu-item {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
   }
 }

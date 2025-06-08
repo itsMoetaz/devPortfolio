@@ -180,8 +180,8 @@ const About = () => {
                 handle="moetazKH"
                 status="Available for work"
                 contactText="Get In Touch"
-                avatarUrl="src\assets\x.png"
-                backgroundImage="src\assets\x.png"
+                avatarUrl="/x.png"
+                backgroundImage="/x.png"
                 showUserInfo={true}
                 enableTilt={true}
                 onContactClick={handleContactClick}

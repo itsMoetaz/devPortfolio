@@ -144,70 +144,68 @@ const Contact = memo(() => {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="relative min-h-screen py-20 bg-gradient-to-br from-base-100 via-base-200 to-base-300 overflow-hidden"
+      className="relative min-h-screen py-20 overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f3460 100%)' }}
     >
-      {/* Particles Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <Particles
-          particleCount={150}
-          particleSpread={15}
-          speed={0.05}
-          particleColors={[
-            "#6366f1", // primary
-            "#a855f7", // secondary
-            "#06b6d4", // accent
-            "#ffffff", // white
-            "#e5e7eb"  // gray
-          ]}
-          moveParticlesOnHover={true}
-          particleHoverFactor={0.5}
-          alphaParticles={true}
-          particleBaseSize={80}
-          sizeRandomness={0.8}
-          cameraDistance={25}
-          disableRotation={false}
-          className="opacity-40"
-        />
+      {/* Particles Space Background */}
+      <div style={{ 
+        position: 'absolute', 
+        top: 0, 
+        left: 0, 
+        width: '100%', 
+        height: '100%', 
+        zIndex: 1 
+      }}>
+  <Particles
+    particleColors={['#ffffff', '#ffffff']}
+    particleCount={200}
+    particleSpread={10}
+    speed={0.1}
+    particleBaseSize={100}
+    moveParticlesOnHover={true}
+    alphaParticles={false}
+    disableRotation={false}
+  />
       </div>
 
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-base-100/80 via-base-200/60 to-base-300/80 backdrop-blur-sm"></div>
+      {/* Dark overlay for better text readability */}
+      <div 
+        className="absolute inset-0 bg-black/30"
+        style={{ zIndex: 2 }}
+      />
 
-      {/* Additional subtle background elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/30 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-secondary/35 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/25 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      {/* Content Container */}
+      <div 
+        className="relative max-w-7xl mx-auto px-6"
+        style={{ zIndex: 10 }}
+      >
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
             Let's Connect
           </h2>
-          <p className="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto mb-6">
+          <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-6">
             Ready to bring your ideas to life? Let's discuss your project and make it happen together.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <span className="px-3 py-1 bg-primary/20 backdrop-blur-sm rounded-full text-primary text-sm border border-primary/30">⚡ Quick Response</span>
-            <span className="px-3 py-1 bg-secondary/20 backdrop-blur-sm rounded-full text-secondary text-sm border border-secondary/30">🌍 Available Worldwide</span>
-            <span className="px-3 py-1 bg-accent/20 backdrop-blur-sm rounded-full text-accent text-sm border border-accent/30">🤝 Collaborative</span>
+            <span className="px-3 py-1 bg-blue-500/20 backdrop-blur-sm rounded-full text-blue-300 text-sm border border-blue-400/30">⚡ Quick Response</span>
+            <span className="px-3 py-1 bg-purple-500/20 backdrop-blur-sm rounded-full text-purple-300 text-sm border border-purple-400/30">🌍 Available Worldwide</span>
+            <span className="px-3 py-1 bg-cyan-500/20 backdrop-blur-sm rounded-full text-cyan-300 text-sm border border-cyan-400/30">🤝 Collaborative</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form with enhanced backdrop */}
-          <div className="form-element bg-base-100/90 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-2xl">
+          {/* Contact Form */}
+          <div className="form-element bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-2xl">
             <div className="flex items-center mb-6">
               <span className="text-3xl mr-3">📝</span>
-              <h3 className="text-2xl font-bold">Send Message</h3>
+              <h3 className="text-2xl font-bold text-white">Send Message</h3>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Input */}
               <div className="form-element">
-                <label className="block text-sm font-medium mb-2">Full Name *</label>
+                <label className="block text-sm font-medium mb-2 text-white/90">Full Name *</label>
                 <input
                   type="text"
                   name="name"
@@ -215,10 +213,10 @@ const Contact = memo(() => {
                   onChange={handleChange}
                   onFocus={() => setFocusedField('name')}
                   onBlur={() => setFocusedField(null)}
-                  className={`w-full px-4 py-3 bg-base-200/70 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none ${
+                  className={`w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none text-white placeholder-white/60 ${
                     focusedField === 'name' 
-                      ? 'border-primary bg-base-100/80 shadow-lg shadow-primary/20' 
-                      : 'border-base-300/50 hover:border-base-400/70'
+                      ? 'border-blue-400 bg-white/20 shadow-lg shadow-blue-400/20' 
+                      : 'border-white/30 hover:border-white/50'
                   }`}
                   placeholder="Your full name"
                   required
@@ -227,7 +225,7 @@ const Contact = memo(() => {
 
               {/* Email Input */}
               <div className="form-element">
-                <label className="block text-sm font-medium mb-2">Email Address *</label>
+                <label className="block text-sm font-medium mb-2 text-white/90">Email Address *</label>
                 <input
                   type="email"
                   name="email"
@@ -235,10 +233,10 @@ const Contact = memo(() => {
                   onChange={handleChange}
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
-                  className={`w-full px-4 py-3 bg-base-200/70 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none ${
+                  className={`w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none text-white placeholder-white/60 ${
                     focusedField === 'email' 
-                      ? 'border-primary bg-base-100/80 shadow-lg shadow-primary/20' 
-                      : 'border-base-300/50 hover:border-base-400/70'
+                      ? 'border-blue-400 bg-white/20 shadow-lg shadow-blue-400/20' 
+                      : 'border-white/30 hover:border-white/50'
                   }`}
                   placeholder="your.email@example.com"
                   required
@@ -247,7 +245,7 @@ const Contact = memo(() => {
 
               {/* Subject Input */}
               <div className="form-element">
-                <label className="block text-sm font-medium mb-2">Subject *</label>
+                <label className="block text-sm font-medium mb-2 text-white/90">Subject *</label>
                 <input
                   type="text"
                   name="subject"
@@ -255,10 +253,10 @@ const Contact = memo(() => {
                   onChange={handleChange}
                   onFocus={() => setFocusedField('subject')}
                   onBlur={() => setFocusedField(null)}
-                  className={`w-full px-4 py-3 bg-base-200/70 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none ${
+                  className={`w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none text-white placeholder-white/60 ${
                     focusedField === 'subject' 
-                      ? 'border-primary bg-base-100/80 shadow-lg shadow-primary/20' 
-                      : 'border-base-300/50 hover:border-base-400/70'
+                      ? 'border-blue-400 bg-white/20 shadow-lg shadow-blue-400/20' 
+                      : 'border-white/30 hover:border-white/50'
                   }`}
                   placeholder="What's this about?"
                   required
@@ -267,7 +265,7 @@ const Contact = memo(() => {
 
               {/* Message Textarea */}
               <div className="form-element">
-                <label className="block text-sm font-medium mb-2">Message *</label>
+                <label className="block text-sm font-medium mb-2 text-white/90">Message *</label>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -275,10 +273,10 @@ const Contact = memo(() => {
                   onFocus={() => setFocusedField('message')}
                   onBlur={() => setFocusedField(null)}
                   rows={5}
-                  className={`w-full px-4 py-3 bg-base-200/70 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none resize-none ${
+                  className={`w-full px-4 py-3 bg-white/10 backdrop-blur-sm border-2 rounded-xl transition-all duration-300 focus:outline-none resize-none text-white placeholder-white/60 ${
                     focusedField === 'message' 
-                      ? 'border-primary bg-base-100/80 shadow-lg shadow-primary/20' 
-                      : 'border-base-300/50 hover:border-base-400/70'
+                      ? 'border-blue-400 bg-white/20 shadow-lg shadow-blue-400/20' 
+                      : 'border-white/30 hover:border-white/50'
                   }`}
                   placeholder="Tell me about your project..."
                   required
@@ -291,15 +289,15 @@ const Contact = memo(() => {
                 disabled={isSubmitting}
                 className={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 ${
                   isSubmitting 
-                    ? 'bg-base-300/70 text-base-content cursor-not-allowed' 
-                    : 'bg-primary text-primary-content hover:bg-primary/90 shadow-lg hover:shadow-xl shadow-primary/30'
+                    ? 'bg-white/20 text-white cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl shadow-blue-500/30'
                 }`}
-                whileHover={!isSubmitting ? { scale: 1.02, boxShadow: "0 20px 40px rgba(99, 102, 241, 0.4)" } : {}}
+                whileHover={!isSubmitting ? { scale: 1.02, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)" } : {}}
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-content mr-2"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                     Sending...
                   </div>
                 ) : (
@@ -317,7 +315,7 @@ const Contact = memo(() => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mt-4 p-3 bg-success/20 backdrop-blur-sm border border-success/30 rounded-xl text-success text-sm flex items-center"
+                  className="mt-4 p-3 bg-green-500/20 backdrop-blur-sm border border-green-400/30 rounded-xl text-green-300 text-sm flex items-center"
                 >
                   <span className="mr-2">✅</span>
                   Message sent successfully!
@@ -329,7 +327,7 @@ const Contact = memo(() => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mt-4 p-3 bg-error/20 backdrop-blur-sm border border-error/30 rounded-xl text-error text-sm flex items-center"
+                  className="mt-4 p-3 bg-red-500/20 backdrop-blur-sm border border-red-400/30 rounded-xl text-red-300 text-sm flex items-center"
                 >
                   <span className="mr-2">❌</span>
                   Failed to send. Please try again.
@@ -338,14 +336,14 @@ const Contact = memo(() => {
             </AnimatePresence>
           </div>
           
-          {/* Spline Container with enhanced backdrop */}
-          <div className="spline-container relative bg-base-100/70 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-2xl">
+          {/* Spline Container */}
+          <div className="spline-container relative bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-2xl">
             <div className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden">
               {!splineLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3"></div>
-                    <p className="text-sm text-base-content/70">Loading 3D Experience...</p>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-3"></div>
+                    <p className="text-sm text-white/70">Loading 3D Experience...</p>
                   </div>
                 </div>
               )}
@@ -365,11 +363,11 @@ const Contact = memo(() => {
           </div>
         </div>
 
-        {/* Contact Info with enhanced backdrop */}
+        {/* Contact Info */}
         <div className="text-center mt-16">
-          <div className="bg-base-100/80 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold mb-4">Ready to Start Something Amazing? 🌟</h3>
-            <p className="text-lg text-base-content/80 mb-6">
+          <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl max-w-4xl mx-auto">
+            <h3 className="text-3xl font-bold mb-4 text-white">Ready to Start Something Amazing? 🌟</h3>
+            <p className="text-lg text-white/80 mb-6">
               Every great project starts with a conversation.
             </p>
             
@@ -399,9 +397,9 @@ const Contact = memo(() => {
             </div>
 
             {/* Contact Details */}
-            <div className="text-base-content/70 text-sm space-y-1">
-              <p>📧 <a href="mailto:moetaz.benkhedher@esprit.tn" className="hover:text-primary transition-colors">moetaz.benkhedher@esprit.tn</a></p>
-              <p>📱 <a href="tel:+216 23 910 690" className="hover:text-primary transition-colors">+216 23 910 690</a></p>
+            <div className="text-white/70 text-sm space-y-1">
+              <p>📧 <a href="mailto:moetaz.benkhedher@esprit.tn" className="hover:text-blue-400 transition-colors">moetaz.benkhedher@esprit.tn</a></p>
+              <p>📱 <a href="tel:+216 23 910 690" className="hover:text-blue-400 transition-colors">+216 23 910 690</a></p>
               <p>📍 Tunisia - Available for remote work worldwide</p>
             </div>
           </div>

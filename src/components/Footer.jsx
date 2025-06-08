@@ -5,7 +5,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <h3 className="text-2xl font-bold text-gradient">John Doe</h3>
-            <p className="text-base-content/70">Full Stack Developer & 3D Enthusiast</p>
+            <p className="text-base-content/70">Software Engineer | Full-Stack Web Developer | DevOps & AI</p>
           </div>
           
           <div className="flex gap-4">
@@ -20,7 +20,7 @@ const Footer = () => {
         <div className="divider"></div>
         
         <div className="text-center text-base-content/60">
-          <p>&copy; 2025 John Doe. All rights reserved. Built with ❤️ using React, Three.js & GSAP</p>
+          <p>&copy; All rights reserved. Built with ❤️ using React & GSAP</p>
         </div>
       </div>
     </footer>

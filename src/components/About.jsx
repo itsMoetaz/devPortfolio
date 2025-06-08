@@ -16,6 +16,16 @@ const About = () => {
   const statsRef = useRef(null)
 
 
+  const handleDownloadResume = () => {
+    // Method 1: If you have a PDF file in your public folder
+    const link = document.createElement('a')
+    link.href = '/resume.pdf' // Place your resume.pdf in the public folder
+    link.download = 'Moetaz_Khedher_Resume.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   useEffect(() => {
     let ctx = gsap.context(() => {
       // Hero section animation
@@ -144,17 +154,17 @@ const About = () => {
             </span>
           </h2>
           <div className="text-xl text-base-content/80 max-w-2xl mx-auto font-mono">
-            <DecryptedText 
-              text="A passionate full-stack developer who loves creating beautiful, functional, and user-friendly digital experiences."
-              animateOn="view"
-              speed={30}
-              maxIterations={15}
-              sequential={true}
-              revealDirection="start"
-              className="text-xl text-base-content/80"
-              encryptedClassName="text-xl text-primary/60"
-              parentClassName="leading-relaxed"
-            />
+<DecryptedText 
+  text="Transforming ideas into reality through code, creativity, and cutting-edge technology solutions."
+  animateOn="view"
+  speed={30}
+  maxIterations={15}
+  sequential={true}
+  revealDirection="start"
+  className="text-xl text-base-content/80"
+  encryptedClassName="text-xl text-primary/60"
+  parentClassName="leading-relaxed"
+/>
           </div>
         </div>
 
@@ -195,19 +205,11 @@ I’m known for being a fast learner, a collaborative team player, and someone w
 
 My goal is to keep improving while contributing to projects that make a real impact.
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn btn-primary backdrop-blur-sm">
-                  Download CV
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </button>
-                <button 
-                  onClick={handleContactClick}
-                  className="btn btn-outline backdrop-blur-sm border-white/20 hover:bg-white/10"
-                >
-                  Contact Me
+              <div className="flex justify-center">
+                <button
+                 onClick={handleDownloadResume}
+                 className="relative rounded-full bg-blue-500 px-6 py-3 font-mono font-bold text-white transition-colors duration-300 ease-linear before:absolute before:right-1/2 before:top-1/2 before:-z-[1] before:h-3/4 before:w-2/3 before:origin-bottom-left before:-translate-y-1/2 before:translate-x-1/2 before:animate-ping before:rounded-full before:bg-blue-500 hover:bg-blue-700 hover:before:bg-blue-700">
+                  Download Resume
                 </button>
               </div>
             </div>
@@ -231,6 +233,14 @@ My goal is to keep improving while contributing to projects that make a real imp
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
                   <span>React</span>
                 </div>
+                <div className="tech-item">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" alt="Redux" />
+  <span>Redux</span>
+</div>
+<div className="tech-item">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" />
+  <span>Tailwind</span>
+</div>
                 <div className="tech-item">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular" />
                   <span>Angular</span>
@@ -291,6 +301,10 @@ My goal is to keep improving while contributing to projects that make a real imp
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
                   <span>MySQL</span>
                 </div>
+                <div className="tech-item">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" alt="Symfony" />
+  <span>Symfony</span>
+</div>
                 
                 {/* Duplicate set for seamless loop */}
                 <div className="tech-item">
@@ -301,6 +315,14 @@ My goal is to keep improving while contributing to projects that make a real imp
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
                   <span>React</span>
                 </div>
+                <div className="tech-item">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" alt="Redux" />
+  <span>Redux</span>
+</div>
+<div className="tech-item">
+  <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="Tailwind CSS" />
+  <span>Tailwind</span>
+</div>
                 <div className="tech-item">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular" />
                   <span>Angular</span>
@@ -361,6 +383,10 @@ My goal is to keep improving while contributing to projects that make a real imp
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
                   <span>MySQL</span>
                 </div>
+                <div className="tech-item">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" alt="Symfony" />
+  <span>Symfony</span>
+</div>
               </div>
             </div>
           </div>

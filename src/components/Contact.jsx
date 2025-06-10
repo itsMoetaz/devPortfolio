@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState, useCallback, memo } from 'react'
+import { useEffect, useRef, useState, useCallback, memo, Suspense, lazy } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, AnimatePresence } from 'framer-motion'
 import emailjs from '@emailjs/browser'
+import ModelLoader from './ModelLoader'
 import Particles from '../styles/Particles'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -346,19 +347,19 @@ const Contact = memo(() => {
                     <p className="text-sm text-white/70">Loading 3D Experience...</p>
                   </div>
                 </div>
-              )}
-              
-              <spline-viewer 
-                url="https://prod.spline.design/Xa5upU6ofUkCR9kK/scene.splinecode"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '0.75rem',
+              )}              
+              <Suspense fallback={<ModelLoader />}>                <spline-viewer 
+                  url="https://prod.spline.design/Xa5upU6ofUkCR9kK/scene.splinecode"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '0.75rem',
                   background: 'transparent',
                 }}
                 onLoad={() => setSplineLoaded(true)}
                 onError={() => setSplineLoaded(true)}
               />
+              </Suspense>
             </div>
           </div>
         </div>

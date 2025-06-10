@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo, Suspense } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, AnimatePresence } from 'framer-motion'
+import LazyImage from './LazyImage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -243,8 +244,7 @@ const Projects = () => {
               >
                 <div className="relative bg-base-100 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-base-300/50">
                   {/* Project Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
+                  <div className="relative h-48 overflow-hidden">                    <LazyImage 
                       src={project.image} 
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -393,8 +393,7 @@ const Projects = () => {
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative">
-                <img 
+              <div className="relative">                <LazyImage 
                   src={selectedProject.image} 
                   alt={selectedProject.title}
                   className="w-full h-64 object-cover"

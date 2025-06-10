@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, Suspense, lazy } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import StarField from './StarField'
+import LazyImage from './LazyImage'
+import ModelLoader from './ModelLoader'
 import DecryptedText from '../styles/DecryptedText'
 import ProfileCard from '../styles/ProfileCard'
 import RotatingText from '../styles/RotatingText'
+
+// Lazy load the heavy 3D component
+const StarField = lazy(() => import('./StarField'))
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -118,10 +122,11 @@ const About = () => {
       ref={sectionRef} 
       id="about" 
       className="relative min-h-screen bg-gradient-to-b from-base-100 to-base-200 py-20 px-4 overflow-hidden"
-    >
-      {/* StarField Background */}
+    >      {/* StarField Background */}
       <div className="absolute inset-0 z-0">
-        <StarField />
+        <Suspense fallback={<ModelLoader />}>
+          <StarField />
+        </Suspense>
       </div>
 
       {/* Content */}
@@ -226,167 +231,367 @@ My goal is to keep improving while contributing to projects that make a real imp
               <div className="tech-scroll-track">
                 {/* First set of technologies */}
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" 
+                    alt="JavaScript" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>JavaScript</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" 
+                    alt="React" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>React</span>
                 </div>
                 <div className="tech-item">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" alt="Redux" />
-  <span>Redux</span>
-</div>
-<div className="tech-item">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" />
-  <span>Tailwind</span>
-</div>
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" 
+                    alt="Redux" 
+                    width="48" 
+                    height="48"
+                  />
+                  <span>Redux</span>
+                </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" 
+                    alt="Tailwind CSS" 
+                    width="48" 
+                    height="48"
+                  />
+                  <span>Tailwind</span>
+                </div>
+                <div className="tech-item">
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" 
+                    alt="Angular" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Angular</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" 
+                    alt="Node.js" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Node.js</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" 
+                    alt="Spring Boot" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Spring Boot</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" 
+                    alt=".NET" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>.NET</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" 
+                    alt="Python" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Python</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" 
+                    alt="Docker" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Docker</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" 
+                    alt="Jenkins" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Jenkins</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" 
+                    alt="HTML5" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>HTML5</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" 
+                    alt="CSS3" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>CSS3</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" 
+                    alt="Git" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Git</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" 
+                    alt="MongoDB" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>MongoDB</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" 
+                    alt="Figma" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Figma</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" alt="UI/UX" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" 
+                    alt="UI/UX" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>UI/UX</span>
                 </div>
-                                <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" />
+                <div className="tech-item">
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" 
+                    alt="Express.js" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Express.js</span>
                 </div>
-                                <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+                <div className="tech-item">
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" 
+                    alt="MySQL" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>MySQL</span>
                 </div>
                 <div className="tech-item">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" alt="Symfony" />
-  <span>Symfony</span>
-</div>
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" 
+                    alt="Symfony" 
+                    width="48" 
+                    height="48"
+                  />
+                  <span>Symfony</span>
+                </div>
                 
                 {/* Duplicate set for seamless loop */}
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" 
+                    alt="JavaScript" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>JavaScript</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" 
+                    alt="React" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>React</span>
                 </div>
                 <div className="tech-item">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" alt="Redux" />
-  <span>Redux</span>
-</div>
-<div className="tech-item">
-  <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="Tailwind CSS" />
-  <span>Tailwind</span>
-</div>
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" 
+                    alt="Redux" 
+                    width="48" 
+                    height="48"
+                  />
+                  <span>Redux</span>
+                </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" alt="Angular" />
+                  <LazyImage 
+                    src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" 
+                    alt="Tailwind CSS" 
+                    width="48" 
+                    height="48"
+                  />
+                  <span>Tailwind</span>
+                </div>
+                <div className="tech-item">
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" 
+                    alt="Angular" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Angular</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" 
+                    alt="Node.js" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Node.js</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" 
+                    alt="Spring Boot" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Spring Boot</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" 
+                    alt=".NET" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>.NET</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" 
+                    alt="Python" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Python</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" 
+                    alt="Docker" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Docker</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" 
+                    alt="Jenkins" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Jenkins</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" 
+                    alt="HTML5" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>HTML5</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" 
+                    alt="CSS3" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>CSS3</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" 
+                    alt="Git" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Git</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" 
+                    alt="MongoDB" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>MongoDB</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" 
+                    alt="Figma" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Figma</span>
                 </div>
                 <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" alt="UI/UX" />
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" 
+                    alt="UI/UX" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>UI/UX</span>
                 </div>
-                                                <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" />
+                <div className="tech-item">
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" 
+                    alt="Express.js" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>Express.js</span>
                 </div>
-                                <div className="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+                <div className="tech-item">
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" 
+                    alt="MySQL" 
+                    width="48" 
+                    height="48"
+                  />
                   <span>MySQL</span>
                 </div>
                 <div className="tech-item">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" alt="Symfony" />
-  <span>Symfony</span>
-</div>
+                  <LazyImage 
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" 
+                    alt="Symfony" 
+                    width="48" 
+                    height="48"
+                  />
+                  <span>Symfony</span>
+                </div>
               </div>
             </div>
           </div>

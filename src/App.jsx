@@ -1,9 +1,9 @@
-import React, { Suspense, useEffect, useState, useRef, memo, useMemo, useCallback } from 'react'
+import React, { Suspense, useEffect, useState, useRef, memo, useMemo, useCallback, lazy } from 'react'
 import About from './components/About'
-import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import LoadingSpinner from './components/LoadingSpinner'
+import ModelLoader from './components/ModelLoader'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
@@ -11,6 +11,11 @@ import ScrambledText from './styles/ScrambledText'
 import FloatingMenu from './components/FloatingMenu'
 import { motion, AnimatePresence } from 'framer-motion'
 import styled from 'styled-components'
+
+// Lazy load heavy components
+const Projects = lazy(() => import('./components/Projects'))
+const Hero3D = lazy(() => import('./components/Hero3D'))
+const GalaxyScene = lazy(() => import('./components/GalaxyScene'))
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -489,6 +494,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [showNavbar, setShowNavbar] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const pageLoaderRef = useRef()
   const heroTitleRef = useRef()
   const heroSubtitleRef = useRef()
@@ -641,6 +647,23 @@ function App() {
     }
   }, [])
 
+  // Effect to handle screen resize
+  useEffect(() => {
+    // Function to update screen size state
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Call once to set initial state
+    handleResize();
+    
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       {/* Space Astronaut Loader */}
@@ -677,6 +700,8 @@ function App() {
           ref={navbarRef}
           className={`navbar-enhanced fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-out ${
             showNavbar ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+          } ${
+            isMobile ? 'hidden' : '' 
           }`}
         >
           <div className="flex items-center justify-between max-w-7xl mx-auto w-full px-6 lg:px-8 py-2">

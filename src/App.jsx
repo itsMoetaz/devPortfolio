@@ -9,7 +9,7 @@ import './App.css'
 import ScrambledText from './styles/ScrambledText'
 import FloatingMenu from './components/FloatingMenu'
 import { motion, AnimatePresence } from 'framer-motion'
-import SpaceLoader from './components/SpaceLoader';
+import NeonLoader from './components/NeonLoader'; // Changed from SpaceLoader
 
 // Lazy load heavy components
 const Projects = lazy(() => import('./components/Projects'))
@@ -502,8 +502,7 @@ function App() {
   const navbarRef = useRef()
   const lastScrollY = useRef(0)
   const ticking = useRef(false)
-  const MemoizedLoader = React.memo(() => <SpaceLoader />);
- 
+  const MemoizedLoader = useMemo(() => React.memo(NeonLoader), []);
   // Optimized scroll handler using RAF
   const handleScroll = useCallback(() => {
     if (!ticking.current) {
@@ -669,9 +668,11 @@ function App() {
       <AnimatePresence>
         {isLoading && (
           <motion.div 
-            className="fixed inset-0 z-50"
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
+      className="fixed inset-0 z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: "linear" }}
           >
             <MemoizedLoader />
           </motion.div>

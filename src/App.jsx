@@ -3,453 +3,451 @@ import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import LoadingSpinner from './components/LoadingSpinner'
-import ModelLoader from './components/ModelLoader'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
 import ScrambledText from './styles/ScrambledText'
 import FloatingMenu from './components/FloatingMenu'
 import { motion, AnimatePresence } from 'framer-motion'
-import styled from 'styled-components'
+import SpaceLoader from './components/SpaceLoader';
 
 // Lazy load heavy components
 const Projects = lazy(() => import('./components/Projects'))
-const Hero3D = lazy(() => import('./components/Hero3D'))
-const GalaxyScene = lazy(() => import('./components/GalaxyScene'))
+
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Space Astronaut Loader Component
-const SpaceLoader = () => {
-  return (
-    <StyledWrapper>
-      <div className="loader-container">
-        <div className="box-of-star1">
-          <div className="star star-position1" />
-          <div className="star star-position2" />
-          <div className="star star-position3" />
-          <div className="star star-position4" />
-          <div className="star star-position5" />
-          <div className="star star-position6" />
-          <div className="star star-position7" />
-        </div>
-        <div className="box-of-star2">
-          <div className="star star-position1" />
-          <div className="star star-position2" />
-          <div className="star star-position3" />
-          <div className="star star-position4" />
-          <div className="star star-position5" />
-          <div className="star star-position6" />
-          <div className="star star-position7" />
-        </div>
-        <div className="box-of-star3">
-          <div className="star star-position1" />
-          <div className="star star-position2" />
-          <div className="star star-position3" />
-          <div className="star star-position4" />
-          <div className="star star-position5" />
-          <div className="star star-position6" />
-          <div className="star star-position7" />
-        </div>
-        <div className="box-of-star4">
-          <div className="star star-position1" />
-          <div className="star star-position2" />
-          <div className="star star-position3" />
-          <div className="star star-position4" />
-          <div className="star star-position5" />
-          <div className="star star-position6" />
-          <div className="star star-position7" />
-        </div>
-        <div data-js="astro" className="astronaut">
-          <div className="head" />
-          <div className="arm arm-left" />
-          <div className="arm arm-right" />
-          <div className="body">
-            <div className="panel" />
-          </div>
-          <div className="leg leg-left" />
-          <div className="leg leg-right" />
-          <div className="schoolbag" />
-        </div>
+// // Space Astronaut Loader Component
+// const SpaceLoader = () => {
+//   return (
+//     <StyledWrapper>
+//       <div className="loader-container">
+//         <div className="box-of-star1">
+//           <div className="star star-position1" />
+//           <div className="star star-position2" />
+//           <div className="star star-position3" />
+//           <div className="star star-position4" />
+//           <div className="star star-position5" />
+//           <div className="star star-position6" />
+//           <div className="star star-position7" />
+//         </div>
+//         <div className="box-of-star2">
+//           <div className="star star-position1" />
+//           <div className="star star-position2" />
+//           <div className="star star-position3" />
+//           <div className="star star-position4" />
+//           <div className="star star-position5" />
+//           <div className="star star-position6" />
+//           <div className="star star-position7" />
+//         </div>
+//         <div className="box-of-star3">
+//           <div className="star star-position1" />
+//           <div className="star star-position2" />
+//           <div className="star star-position3" />
+//           <div className="star star-position4" />
+//           <div className="star star-position5" />
+//           <div className="star star-position6" />
+//           <div className="star star-position7" />
+//         </div>
+//         <div className="box-of-star4">
+//           <div className="star star-position1" />
+//           <div className="star star-position2" />
+//           <div className="star star-position3" />
+//           <div className="star star-position4" />
+//           <div className="star star-position5" />
+//           <div className="star star-position6" />
+//           <div className="star star-position7" />
+//         </div>
+//         <div data-js="astro" className="astronaut">
+//           <div className="head" />
+//           <div className="arm arm-left" />
+//           <div className="arm arm-right" />
+//           <div className="body">
+//             <div className="panel" />
+//           </div>
+//           <div className="leg leg-left" />
+//           <div className="leg leg-right" />
+//           <div className="schoolbag" />
+//         </div>
         
-        {/* Loading Text */}
-        <div className="loading-text">
-          <h2 className="text-2xl font-bold text-white mb-4 animate-pulse">
-            Exploring the Digital Universe
-          </h2>
-          <p className="text-white/70 text-lg">
-            Preparing your cosmic journey...
-          </p>
-        </div>
-      </div>
-    </StyledWrapper>
-  );
-}
+//         {/* Loading Text */}
+//         <div className="loading-text">
+//           <h2 className="text-2xl font-bold text-white mb-4 animate-pulse">
+//             Exploring the Digital Universe
+//           </h2>
+//           <p className="text-white/70 text-lg">
+//             Preparing your cosmic journey...
+//           </p>
+//         </div>
+//       </div>
+//     </StyledWrapper>
+//   );
+// }
 
-const StyledWrapper = styled.div`
-  .loader-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f3460 100%);
-    overflow: hidden;
-  }
+// const StyledWrapper = styled.div`
+//   .loader-container {
+//     position: relative;
+//     width: 100vw;
+//     height: 100vh;
+//     background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0f3460 100%);
+//     overflow: hidden;
+//   }
 
-  .loading-text {
-    position: absolute;
-    bottom: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    z-index: 20;
-  }
+//   .loading-text {
+//     position: absolute;
+//     bottom: 20%;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     text-align: center;
+//     z-index: 20;
+//   }
 
-  @keyframes snow {
-    0% {
-      opacity: 0;
-      transform: translateY(0px);
-    }
-    20% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(100vh);
-    }
-  }
+//   @keyframes snow {
+//     0% {
+//       opacity: 0;
+//       transform: translateY(0px);
+//     }
+//     20% {
+//       opacity: 1;
+//     }
+//     100% {
+//       opacity: 1;
+//       transform: translateY(100vh);
+//     }
+//   }
 
-  @keyframes astronaut {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+//   @keyframes astronaut {
+//     0% {
+//       transform: rotate(0deg);
+//     }
+//     100% {
+//       transform: rotate(360deg);
+//     }
+//   }
 
-  .box-of-star1,
-  .box-of-star2,
-  .box-of-star3,
-  .box-of-star4 {
-    width: 100%;
-    position: absolute;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    transform: translateY(0px);
-    height: 100vh;
-  }
+//   .box-of-star1,
+//   .box-of-star2,
+//   .box-of-star3,
+//   .box-of-star4 {
+//     width: 100%;
+//     position: absolute;
+//     z-index: 10;
+//     left: 0;
+//     top: 0;
+//     transform: translateY(0px);
+//     height: 100vh;
+//   }
 
-  .box-of-star1 {
-    animation: snow 5s linear infinite;
-  }
+//   .box-of-star1 {
+//     animation: snow 5s linear infinite;
+//   }
 
-  .box-of-star2 {
-    animation: snow 5s -1.64s linear infinite;
-  }
+//   .box-of-star2 {
+//     animation: snow 5s -1.64s linear infinite;
+//   }
 
-  .box-of-star3 {
-    animation: snow 5s -2.30s linear infinite;
-  }
+//   .box-of-star3 {
+//     animation: snow 5s -2.30s linear infinite;
+//   }
 
-  .box-of-star4 {
-    animation: snow 5s -3.30s linear infinite;
-  }
+//   .box-of-star4 {
+//     animation: snow 5s -3.30s linear infinite;
+//   }
 
-  .star {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background-color: #FFF;
-    position: absolute;
-    z-index: 10;
-    opacity: 0.7;
-  }
+//   .star {
+//     width: 3px;
+//     height: 3px;
+//     border-radius: 50%;
+//     background-color: #FFF;
+//     position: absolute;
+//     z-index: 10;
+//     opacity: 0.7;
+//   }
 
-  .star:before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #FFF;
-    position: absolute;
-    z-index: 10;
-    top: 80px;
-    left: 70px;
-    opacity: .7;
-  }
+//   .star:before {
+//     content: "";
+//     width: 6px;
+//     height: 6px;
+//     border-radius: 50%;
+//     background-color: #FFF;
+//     position: absolute;
+//     z-index: 10;
+//     top: 80px;
+//     left: 70px;
+//     opacity: .7;
+//   }
 
-  .star:after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #FFF;
-    position: absolute;
-    z-index: 10;
-    top: 8px;
-    left: 170px;
-    opacity: .9;
-  }
+//   .star:after {
+//     content: "";
+//     width: 8px;
+//     height: 8px;
+//     border-radius: 50%;
+//     background-color: #FFF;
+//     position: absolute;
+//     z-index: 10;
+//     top: 8px;
+//     left: 170px;
+//     opacity: .9;
+//   }
 
-  .star-position1 {
-    top: 30px;
-    left: 20px;
-  }
+//   .star-position1 {
+//     top: 30px;
+//     left: 20px;
+//   }
 
-  .star-position2 {
-    top: 110px;
-    left: 25%;
-  }
+//   .star-position2 {
+//     top: 110px;
+//     left: 25%;
+//   }
 
-  .star-position3 {
-    top: 60px;
-    left: 50%;
-  }
+//   .star-position3 {
+//     top: 60px;
+//     left: 50%;
+//   }
 
-  .star-position4 {
-    top: 120px;
-    left: 75%;
-  }
+//   .star-position4 {
+//     top: 120px;
+//     left: 75%;
+//   }
 
-  .star-position5 {
-    top: 20px;
-    left: 90%;
-  }
+//   .star-position5 {
+//     top: 20px;
+//     left: 90%;
+//   }
 
-  .star-position6 {
-    top: 90px;
-    left: 95%;
-  }
+//   .star-position6 {
+//     top: 90px;
+//     left: 95%;
+//   }
 
-  .star-position7 {
-    top: 30px;
-    left: 80%;
-  }
+//   .star-position7 {
+//     top: 30px;
+//     left: 80%;
+//   }
 
-  .astronaut {
-    width: 250px;
-    height: 300px;
-    position: absolute;
-    z-index: 11;
-    top: calc(50% - 150px);
-    left: calc(50% - 125px);
-    animation: astronaut 5s linear infinite;
-  }
+//   .astronaut {
+//     width: 250px;
+//     height: 300px;
+//     position: absolute;
+//     z-index: 11;
+//     top: calc(50% - 150px);
+//     left: calc(50% - 125px);
+//     animation: astronaut 5s linear infinite;
+//   }
 
-  .schoolbag {
-    width: 100px;
-    height: 150px;
-    position: absolute;
-    z-index: 1;
-    top: calc(50% - 75px);
-    left: calc(50% - 50px);
-    background-color: #94b7ca;
-    border-radius: 50px 50px 0 0 / 30px 30px 0 0;
-  }
+//   .schoolbag {
+//     width: 100px;
+//     height: 150px;
+//     position: absolute;
+//     z-index: 1;
+//     top: calc(50% - 75px);
+//     left: calc(50% - 50px);
+//     background-color: #94b7ca;
+//     border-radius: 50px 50px 0 0 / 30px 30px 0 0;
+//   }
 
-  .head {
-    width: 97px;
-    height: 80px;
-    position: absolute;
-    z-index: 3;
-    background: linear-gradient(90deg, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
-    border-radius: 50%;
-    top: 34px;
-    left: calc(50% - 47.5px);
-  }
+//   .head {
+//     width: 97px;
+//     height: 80px;
+//     position: absolute;
+//     z-index: 3;
+//     background: linear-gradient(90deg, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
+//     border-radius: 50%;
+//     top: 34px;
+//     left: calc(50% - 47.5px);
+//   }
 
-  .head:after {
-    content: "";
-    width: 60px;
-    height: 50px;
-    position: absolute;
-    top: calc(50% - 25px);
-    left: calc(50% - 30px);
-    background: linear-gradient(180deg, #15aece 0%, #15aece 50%, #0391bf 50%, #0391bf 100%);
-    border-radius: 15px;
-  }
+//   .head:after {
+//     content: "";
+//     width: 60px;
+//     height: 50px;
+//     position: absolute;
+//     top: calc(50% - 25px);
+//     left: calc(50% - 30px);
+//     background: linear-gradient(180deg, #15aece 0%, #15aece 50%, #0391bf 50%, #0391bf 100%);
+//     border-radius: 15px;
+//   }
 
-  .head:before {
-    content: "";
-    width: 12px;
-    height: 25px;
-    position: absolute;
-    top: calc(50% - 12.5px);
-    left: -4px;
-    background-color: #618095;
-    border-radius: 5px;
-    box-shadow: 92px 0px 0px #618095;
-  }
+//   .head:before {
+//     content: "";
+//     width: 12px;
+//     height: 25px;
+//     position: absolute;
+//     top: calc(50% - 12.5px);
+//     left: -4px;
+//     background-color: #618095;
+//     border-radius: 5px;
+//     box-shadow: 92px 0px 0px #618095;
+//   }
 
-  .body {
-    width: 85px;
-    height: 100px;
-    position: absolute;
-    z-index: 2;
-    background-color: #fffbff;
-    border-radius: 40px / 20px;
-    top: 105px;
-    left: calc(50% - 41px);
-    background: linear-gradient(90deg, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
-  }
+//   .body {
+//     width: 85px;
+//     height: 100px;
+//     position: absolute;
+//     z-index: 2;
+//     background-color: #fffbff;
+//     border-radius: 40px / 20px;
+//     top: 105px;
+//     left: calc(50% - 41px);
+//     background: linear-gradient(90deg, #e3e8eb 0%, #e3e8eb 50%, #fbfdfa 50%, #fbfdfa 100%);
+//   }
 
-  .panel {
-    width: 60px;
-    height: 40px;
-    position: absolute;
-    top: 20px;
-    left: calc(50% - 30px);
-    background-color: #b7cceb;
-  }
+//   .panel {
+//     width: 60px;
+//     height: 40px;
+//     position: absolute;
+//     top: 20px;
+//     left: calc(50% - 30px);
+//     background-color: #b7cceb;
+//   }
 
-  .panel:before {
-    content: "";
-    width: 30px;
-    height: 5px;
-    position: absolute;
-    top: 9px;
-    left: 7px;
-    background-color: #fbfdfa;
-    box-shadow: 0px 9px 0px #fbfdfa, 0px 18px 0px #fbfdfa;
-  }
+//   .panel:before {
+//     content: "";
+//     width: 30px;
+//     height: 5px;
+//     position: absolute;
+//     top: 9px;
+//     left: 7px;
+//     background-color: #fbfdfa;
+//     box-shadow: 0px 9px 0px #fbfdfa, 0px 18px 0px #fbfdfa;
+//   }
 
-  .panel:after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    top: 9px;
-    right: 7px;
-    background-color: #fbfdfa;
-    border-radius: 50%;
-    box-shadow: 0px 14px 0px 2px #fbfdfa;
-  }
+//   .panel:after {
+//     content: "";
+//     width: 8px;
+//     height: 8px;
+//     position: absolute;
+//     top: 9px;
+//     right: 7px;
+//     background-color: #fbfdfa;
+//     border-radius: 50%;
+//     box-shadow: 0px 14px 0px 2px #fbfdfa;
+//   }
 
-  .arm {
-    width: 80px;
-    height: 30px;
-    position: absolute;
-    top: 121px;
-    z-index: 2;
-  }
+//   .arm {
+//     width: 80px;
+//     height: 30px;
+//     position: absolute;
+//     top: 121px;
+//     z-index: 2;
+//   }
 
-  .arm-left {
-    left: 30px;
-    background-color: #e3e8eb;
-    border-radius: 0 0 0 39px;
-  }
+//   .arm-left {
+//     left: 30px;
+//     background-color: #e3e8eb;
+//     border-radius: 0 0 0 39px;
+//   }
 
-  .arm-right {
-    right: 30px;
-    background-color: #fbfdfa;
-    border-radius: 0 0 39px 0;
-  }
+//   .arm-right {
+//     right: 30px;
+//     background-color: #fbfdfa;
+//     border-radius: 0 0 39px 0;
+//   }
 
-  .arm-left:before,
-  .arm-right:before {
-    content: "";
-    width: 30px;
-    height: 70px;
-    position: absolute;
-    top: -40px;
-  }
+//   .arm-left:before,
+//   .arm-right:before {
+//     content: "";
+//     width: 30px;
+//     height: 70px;
+//     position: absolute;
+//     top: -40px;
+//   }
 
-  .arm-left:before {
-    border-radius: 50px 50px 0px 120px / 50px 50px 0 110px;
-    left: 0;
-    background-color: #e3e8eb;
-  }
+//   .arm-left:before {
+//     border-radius: 50px 50px 0px 120px / 50px 50px 0 110px;
+//     left: 0;
+//     background-color: #e3e8eb;
+//   }
 
-  .arm-right:before {
-    border-radius: 50px 50px 120px 0 / 50px 50px 110px 0;
-    right: 0;
-    background-color: #fbfdfa;
-  }
+//   .arm-right:before {
+//     border-radius: 50px 50px 120px 0 / 50px 50px 110px 0;
+//     right: 0;
+//     background-color: #fbfdfa;
+//   }
 
-  .arm-left:after,
-  .arm-right:after {
-    content: "";
-    width: 30px;
-    height: 10px;
-    position: absolute;
-    top: -24px;
-  }
+//   .arm-left:after,
+//   .arm-right:after {
+//     content: "";
+//     width: 30px;
+//     height: 10px;
+//     position: absolute;
+//     top: -24px;
+//   }
 
-  .arm-left:after {
-    background-color: #6e91a4;
-    left: 0;
-  }
+//   .arm-left:after {
+//     background-color: #6e91a4;
+//     left: 0;
+//   }
 
-  .arm-right:after {
-    right: 0;
-    background-color: #b6d2e0;
-  }
+//   .arm-right:after {
+//     right: 0;
+//     background-color: #b6d2e0;
+//   }
 
-  .leg {
-    width: 30px;
-    height: 40px;
-    position: absolute;
-    z-index: 2;
-    bottom: 70px;
-  }
+//   .leg {
+//     width: 30px;
+//     height: 40px;
+//     position: absolute;
+//     z-index: 2;
+//     bottom: 70px;
+//   }
 
-  .leg-left {
-    left: 76px;
-    background-color: #e3e8eb;
-    transform: rotate(20deg);
-  }
+//   .leg-left {
+//     left: 76px;
+//     background-color: #e3e8eb;
+//     transform: rotate(20deg);
+//   }
 
-  .leg-right {
-    right: 73px;
-    background-color: #fbfdfa;
-    transform: rotate(-20deg);
-  }
+//   .leg-right {
+//     right: 73px;
+//     background-color: #fbfdfa;
+//     transform: rotate(-20deg);
+//   }
 
-  .leg-left:before,
-  .leg-right:before {
-    content: "";
-    width: 50px;
-    height: 25px;
-    position: absolute;
-    bottom: -26px;
-  }
+//   .leg-left:before,
+//   .leg-right:before {
+//     content: "";
+//     width: 50px;
+//     height: 25px;
+//     position: absolute;
+//     bottom: -26px;
+//   }
 
-  .leg-left:before {
-    left: -20px;
-    background-color: #e3e8eb;
-    border-radius: 30px 0 0 0;
-    border-bottom: 10px solid #6d96ac;
-  }
+//   .leg-left:before {
+//     left: -20px;
+//     background-color: #e3e8eb;
+//     border-radius: 30px 0 0 0;
+//     border-bottom: 10px solid #6d96ac;
+//   }
 
-  .leg-right:before {
-    right: -20px;
-    background-color: #fbfdfa;
-    border-radius: 0 30px 0 0;
-    border-bottom: 10px solid #b0cfe4;
-  }
+//   .leg-right:before {
+//     right: -20px;
+//     background-color: #fbfdfa;
+//     border-radius: 0 30px 0 0;
+//     border-bottom: 10px solid #b0cfe4;
+//   }
 
-  @media (max-width: 768px) {
-    .astronaut {
-      width: 200px;
-      height: 240px;
-      top: calc(50% - 120px);
-      left: calc(50% - 100px);
-    }
+//   @media (max-width: 768px) {
+//     .astronaut {
+//       width: 200px;
+//       height: 240px;
+//       top: calc(50% - 120px);
+//       left: calc(50% - 100px);
+//     }
 
-    .loading-text {
-      bottom: 15%;
-    }
+//     .loading-text {
+//       bottom: 15%;
+//     }
 
-    .loading-text h2 {
-      font-size: 1.5rem;
-    }
+//     .loading-text h2 {
+//       font-size: 1.5rem;
+//     }
 
-    .loading-text p {
-      font-size: 1rem;
-    }
-  }
-`;
+//     .loading-text p {
+//       font-size: 1rem;
+//     }
+//   }
+// `;
 
 // Enhanced Error Boundary
 class ErrorBoundary extends React.Component {
@@ -504,7 +502,8 @@ function App() {
   const navbarRef = useRef()
   const lastScrollY = useRef(0)
   const ticking = useRef(false)
-
+  const MemoizedLoader = React.memo(() => <SpaceLoader />);
+ 
   // Optimized scroll handler using RAF
   const handleScroll = useCallback(() => {
     if (!ticking.current) {
@@ -674,7 +673,7 @@ function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
-            <SpaceLoader />
+            <MemoizedLoader />
           </motion.div>
         )}
       </AnimatePresence>

@@ -173,33 +173,32 @@ const About = () => {
           </div>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          
-          {/* Profile Card */}
-          <div className="flex justify-center lg:justify-start pl-12">
-            <div className="w-full max-w-sm">
-              <ProfileCard
-                name="Moetaz Khedher"
-                title="Full-Stack Developer"
-                handle="moetazKH"
-                status="Available for work"
-                contactText="Get In Touch"
-                avatarUrl="/x.png"
-                backgroundImage="/x.png"
-                showUserInfo={true}
-                enableTilt={true}
-                onContactClick={handleContactClick}
-                className="backdrop-blur-md bg-base-100/30 border-white/10"
-              />
+          <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+            
+            {/* Profile Card */}
+            <div className="flex justify-center lg:justify-start pl-3 lg:pl-12">
+              <div className="w-full max-w-sm">
+                <ProfileCard
+            name="Moetaz Khedher"
+            title="Full-Stack Developer"
+            handle="moetazKH"
+            status="Available for work"
+            contactText="Get In Touch"
+            avatarUrl="/x.png"
+            backgroundImage="/x.png"
+            showUserInfo={true}
+            enableTilt={true}
+            onContactClick={handleContactClick}
+            className="backdrop-blur-md bg-base-100/30 border-white/10"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Content */}
+            {/* Content */}
           <div ref={contentRef} className="space-y-6 lg:pr-10">
             <div className="bg-base-100/30 backdrop-blur-md rounded-2xl p-8 border border-white/10">
               <h3 className="text-2xl font-bold text-base-content mb-4">
-Infos             </h3>
+Infos       *       </h3>
               
               <p className="text-base-content/90 leading-relaxed mb-4">
 I'm a curious and passionate Full-Stack Developer who enjoys learning, solving problems, and building useful products. I work mainly with Angular, Spring Boot, and the MERN stack, and I’m also exploring DevOps and AI.
